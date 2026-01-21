@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+  --font-script: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(58, 39, 26, 0.16);
+}
+
+/* Suaviza a estética “paper” sem pesar */
+.paper-noise {
+  background-image: radial-gradient(
+      rgba(58, 39, 26, 0.04) 1px,
+      transparent 1px
+    ),
+    radial-gradient(rgba(58, 39, 26, 0.02) 1px, transparent 1px);
+  background-position: 0 0, 12px 12px;
+  background-size: 24px 24px;
+}
+
+.font-script {
+  font-family: var(--font-script);
+}
