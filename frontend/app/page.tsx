@@ -1,8 +1,4 @@
-"use client";
 
-import { useState } from "react";
-
-import Navbar from "../components/landing/Navbar";
 import HeroBanner from "../components/landing/HeroBanner";
 import OurStory from "../components/landing/OurStory";
 import DelightDrinks from "../components/landing/DelightDrinks";
@@ -11,13 +7,10 @@ import CoffeeBeansCTA from "../components/landing/CoffeeBeansCTA";
 import DelightBlog from "../components/landing/DelightBlog";
 import Footer from "../components/landing/Footer";
 
-import MenuOrderSection from "../components/checkout/MenuOrderSection";
-import CartSidebar from "../components/checkout/CartSidebar";
-import CheckoutModal from "../components/checkout/CheckoutModal";
+import MenuOrderSection from "../components/menu/MenuOrderSection";
+import { CartProvider } from "../components/checkout/cart-store";
 
 export default function Page() {
-  const [open, setOpen] = useState(false);
-
   return (
     <div className="paper-noise">
       <a
@@ -27,21 +20,15 @@ export default function Page() {
         Pular para o conteúdo
       </a>
 
-      <header id="home" className="mx-auto max-w-[1100px] px-6">
-        <Navbar />
-      </header>
-
       <main className="mx-auto max-w-[1100px] px-6">
         <HeroBanner />
         <OurStory />
         <DelightDrinks />
 
-        <div className="mt-6 grid grid-cols-1 items-start gap-6 md:grid-cols-[1fr_340px]">
-          <div className="min-w-0">
-            <MenuOrderSection />
-          </div>
-          <CartSidebar onContinue={() => setOpen(true)} />
-        </div>
+        {/* ✅ MENU + SACOLA (CartProvider envolve toda a área que usa useCart) */}
+        <CartProvider>
+          <MenuOrderSection />
+        </CartProvider>
 
         <SpecialtyGallery />
         <CoffeeBeansCTA />
@@ -51,8 +38,6 @@ export default function Page() {
       <footer id="contact" className="mt-10">
         <Footer />
       </footer>
-
-      <CheckoutModal open={open} onClose={() => setOpen(false)} />
     </div>
   );
 }

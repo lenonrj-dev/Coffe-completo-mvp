@@ -15,7 +15,7 @@ export default function CoffeeBeansCTA() {
       aria-label="Banner de café"
     >
       <div className="relative overflow-hidden rounded-[20px] border border-[#3a271a]/10 bg-[#f4ede6] shadow-sm">
-        <div className="relative h-[200px] w-full">
+        <div className="relative h-[300px] w-full">
           <Image
             src={landingData.cta.texture}
             alt="Textura de café"

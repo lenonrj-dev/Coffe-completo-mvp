@@ -1,32 +1,29 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { landingData } from "../../data/landing";
+import { ArrowLeft, ArrowRight, BookOpenText } from "lucide-react";
 
-function ArrowButton({ label }: { label: string }) {
+function ArrowButton({
+  label,
+  dir,
+}: {
+  label: string;
+  dir: "left" | "right";
+}) {
   return (
     <button
       type="button"
       aria-label={label}
       className="inline-flex size-10 items-center justify-center rounded-xl border border-[#3a271a]/10 bg-white/35 text-[#3a271a] shadow-sm transition hover:-translate-y-0.5 hover:bg-white/55 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3a271a]/35"
     >
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path
-          d="M10 6l6 6-6 6"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      {dir === "left" ? (
+        <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+      ) : (
+        <ArrowRight className="h-4 w-4" aria-hidden="true" />
+      )}
     </button>
   );
 }
@@ -56,10 +53,8 @@ export default function DelightBlog() {
         </div>
 
         <div className="hidden items-center gap-2 md:flex">
-          <div className="rotate-180">
-            <ArrowButton label="Voltar" />
-          </div>
-          <ArrowButton label="Avançar" />
+          <ArrowButton label="Voltar" dir="left" />
+          <ArrowButton label="Avançar" dir="right" />
         </div>
       </div>
 
@@ -85,28 +80,44 @@ export default function DelightBlog() {
             </div>
 
             <div className="p-5">
-              <h3 className="text-base font-semibold tracking-wide text-[#3a271a]">
+              <div className="flex items-center gap-2 text-xs font-semibold text-[#3a271a]/70">
+                <BookOpenText className="h-4 w-4" aria-hidden="true" />
+                <span>Receitas & Conteúdos</span>
+              </div>
+
+              <h3 className="mt-2 text-base font-semibold tracking-wide text-[#3a271a]">
                 {item.title}
               </h3>
+
               <p className="mt-2 text-sm leading-6 text-[#3a271a]/75">
                 {item.excerpt}
               </p>
 
-              <a
+              <Link
                 href={item.href}
                 className="mt-4 inline-flex items-center gap-2 text-[12px] font-semibold tracking-[0.22em] text-[#3a271a]/80 transition hover:text-[#3a271a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3a271a]/35"
               >
-                Read More
+                Ver receita completa
                 <span
                   aria-hidden="true"
                   className="transition group-hover:translate-x-0.5"
                 >
                   →
                 </span>
-              </a>
+              </Link>
             </div>
           </motion.article>
         ))}
+      </div>
+
+      <div className="mt-8 flex justify-center">
+        <Link
+          href="/blog"
+          className="inline-flex h-12 items-center justify-center gap-2 rounded-2xl bg-[#3a271a] px-6 text-sm font-semibold text-[#efe6dc] shadow-sm transition hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3a271a]/35"
+        >
+          Explorar todas as novidades
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
       </div>
     </motion.section>
   );

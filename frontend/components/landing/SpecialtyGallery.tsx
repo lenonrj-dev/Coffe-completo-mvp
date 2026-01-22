@@ -42,7 +42,7 @@ export default function SpecialtyGallery() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="relative pb-14"
+      className="relative pb-14 mt-20"
       aria-labelledby="specialty-title"
     >
       <div className="relative">

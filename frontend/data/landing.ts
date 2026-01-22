@@ -15,24 +15,24 @@ export const landingData = {
   nav: {
     brand: "CoffeeCafe",
     links: [
-      { label: "HOME", href: "#home" },
-      { label: "SERVICE", href: "#service" },
-      { label: "MENU", href: "#menu" },
-      { label: "BLOG", href: "#blog" },
-      { label: "CONTACT", href: "#contact" },
+      { label: "Início", href: "#home" },
+      { label: "Serviços", href: "#service" },
+      { label: "Cardápio", href: "#menu" },
+      { label: "Novidades", href: "#blog" },
+      { label: "Contato", href: "#contact" },
     ],
   },
 
   hero: {
-    title: "Coffee\nCaffeine",
-    subtitle: "We Can Make Better",
+    title: "CoffeeCaffe",
+    subtitle: "Seu momento de pausa começa aqui",
     bannerImage:
       "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=1400&q=80",
   },
 
   story: {
-    title: "Our Story",
-    body: "We serve coffee with personality — roasted with precision, brewed with care, and finished with a signature aroma that makes every sip feel special. From classic espresso to creative blends, everything is crafted to taste premium, warm and unforgettable.",
+    title: "Nossa história",
+    body: "Aqui, café é mais do que bebida — é experiência. A gente torra com precisão, prepara com cuidado e finaliza com aquele aroma marcante que transforma cada gole em um momento especial. Do espresso clássico aos blends criativos, tudo é feito para entregar sabor premium, conforto e aquela sensação de ‘quero mais’.",
     image:
       "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80",
     decor:
@@ -40,28 +40,28 @@ export const landingData = {
   },
 
   drinks: {
-    title: "Our Delight Drinks",
-    desc: "Explore our signature drinks — crafted for comfort, flavor and that perfect caffeine kick.",
+    title: "Bebidas que dão vontade de voltar",
+    desc: "Explore nossas bebidas assinatura — equilíbrio perfeito entre sabor, conforto e a dose ideal de energia.",
     bigImage:
       "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?auto=format&fit=crop&w=1000&q=80",
     items: [
       {
-        title: "Hot\nCoffee",
+        title: "Café\nQuente",
         image:
           "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=700&q=80",
       },
       {
-        title: "CAPPUCCINO\nCUP",
+        title: "Cappuccino\nCremoso",
         image:
           "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=700&q=80",
       },
       {
-        title: "Cold\nCoffee",
+        title: "Café\nGelado",
         image:
           "https://images.unsplash.com/photo-1523942839745-7848d68bd971?auto=format&fit=crop&w=700&q=80",
       },
       {
-        title: "Americano\nCoffee",
+        title: "Americano\nClássico",
         image:
           "https://images.unsplash.com/photo-1459755486867-b55449bb39ff?auto=format&fit=crop&w=700&q=80",
       },
@@ -69,8 +69,8 @@ export const landingData = {
   },
 
   specialty: {
-    title: "Our Specialty",
-    desc: "A curated gallery of flavors, textures and moments — coffee done right.",
+    title: "Nossa especialidade",
+    desc: "Uma curadoria de sabores, texturas e momentos — café do jeito certo.",
     images: [
       "https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=80",
@@ -84,9 +84,9 @@ export const landingData = {
   },
 
   cta: {
-    kicker: "Check Out Our Best",
-    title: "Coffee Beans",
-    button: "READ MORE",
+    kicker: "Os queridinhos da casa",
+    title: "Grãos selecionados",
+    button: "Quero escolher meus grãos",
     texture:
       "https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?auto=format&fit=crop&w=1400&q=80",
     decorLeft:
@@ -96,29 +96,29 @@ export const landingData = {
   },
 
   blog: {
-    title: "Our Delight Blog",
-    desc: "Fresh stories, coffee tips and cozy moments — served weekly.",
+    title: "Novidades & dicas do CoffeeCafe",
+    desc: "Conteúdos rápidos, dicas de preparo e curiosidades — para deixar seu café ainda melhor.",
     items: [
       {
-        title: "Coffee Rituals",
+        title: "Rituais do café",
         excerpt:
-          "Small habits that upgrade your coffee routine — from grind to pour.",
+          "Pequenos hábitos que elevam sua rotina — do moer ao servir, com mais sabor e constância.",
         image:
           "https://images.unsplash.com/photo-1512568400610-62da28bc8a13?auto=format&fit=crop&w=900&q=80",
         href: "/",
       },
       {
-        title: "Brew Like a Pro",
+        title: "Prepare como um barista",
         excerpt:
-          "A simple guide to balance strength, aroma and crema in every cup.",
+          "Um guia simples para acertar a extração, realçar aroma e alcançar aquela crema perfeita.",
         image:
           "https://images.unsplash.com/photo-1504630083234-14187a9c8213?auto=format&fit=crop&w=900&q=80",
         href: "/",
       },
       {
-        title: "Beans & Notes",
+        title: "Notas & torra",
         excerpt:
-          "Discover flavor notes and how roasting changes the final taste.",
+          "Entenda as notas sensoriais e como a torra muda o sabor final na sua xícara.",
         image:
           "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=900&q=80",
         href: "/",
@@ -130,19 +130,19 @@ export const landingData = {
     brand: "CoffeeCafe",
     cols: [
       {
-        title: "Primary",
+        title: "Atalhos",
         links: [
-          { label: "Home", href: "#home" },
-          { label: "Service", href: "#service" },
-          { label: "Menu", href: "#menu" },
+          { label: "Início", href: "#home" },
+          { label: "Serviços", href: "#service" },
+          { label: "Cardápio", href: "#menu" },
         ],
       },
       {
-        title: "Menu",
+        title: "Conteúdos",
         links: [
-          { label: "Blog", href: "#blog" },
-          { label: "Contact", href: "#contact" },
-          { label: "Read More", href: "/" },
+          { label: "Novidades", href: "#blog" },
+          { label: "Fale com a gente", href: "#contact" },
+          { label: "Ver o cardápio agora", href: "#menu" },
         ],
       },
     ],

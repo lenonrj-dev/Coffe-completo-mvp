@@ -4,17 +4,12 @@ import { useMemo } from "react";
 import { useCart } from "./cart-store";
 import { brl } from "./format";
 
-export default function CartSidebar({
-  onContinue,
-}: {
-  onContinue: () => void;
-}) {
+export default function CartSidebar({ onContinue }: { onContinue: () => void }) {
   const { items, removeItem, setQty, clear, subtotal } = useCart();
-
   const total = useMemo(() => subtotal, [subtotal]);
 
   return (
-    <aside className="sticky top-6 hidden h-fit w-full max-w-[340px] md:block">
+    <aside className="sticky top-6 hidden h-fit w-full max-w-[360px] md:block">
       <div className="rounded-2xl border border-[#3a271a]/10 bg-white/60 shadow-sm backdrop-blur-sm">
         <div className="border-b border-[#3a271a]/10 p-4">
           <div className="flex items-center justify-between">
@@ -52,7 +47,7 @@ export default function CartSidebar({
                       {brl(it.price)}
                     </p>
 
-                    <div className="mt-2 flex items-center gap-3 text-xs">
+                    <div className="mt-2 flex items-center gap-2 text-xs">
                       <button
                         onClick={() => setQty(it.id, it.quantity + 1)}
                         className="rounded-xl border border-[#3a271a]/10 bg-white/50 px-2 py-1 font-semibold text-[#3a271a] transition hover:bg-white"

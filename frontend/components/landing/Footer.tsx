@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { landingData } from "../../data/landing";
 
@@ -22,14 +23,30 @@ function SocialIcon({
   );
 }
 
+const NAV_LINK_CLASS =
+  "text-[12px] font-medium tracking-[0.24em] text-[#3a271a]/80 transition hover:text-[#3a271a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3a271a]/35";
+
+const FOOTER_LINKS_PRIMARY = [
+  { label: "Início", href: "/" },
+  { label: "Serviços", href: "/servicos" },
+  { label: "Cardápio", href: "/menu" },
+];
+
+const FOOTER_LINKS_CONTENT = [
+  { label: "Novidades", href: "/novidades" },
+  { label: "Contato", href: "/contato" },
+  { label: "Carrinho", href: "/carrinho" },
+];
+
 export default function Footer() {
   return (
-    <motion.div
+    <motion.footer
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="relative bg-[#efe6dc]"
+      aria-label="Rodapé"
     >
       <div className="relative overflow-hidden border-t border-[#3a271a]/10">
         <div className="pointer-events-none absolute inset-0 opacity-[0.25]">
@@ -49,6 +66,11 @@ export default function Footer() {
                   {landingData.footer.brand}
                 </span>
               </div>
+
+              <p className="mt-3 max-w-[34ch] text-sm leading-6 text-[#3a271a]/70">
+                Artesanal • Fresco • Premium — café e bebidas especiais para o seu
+                momento.
+              </p>
 
               <div className="mt-5 flex items-center gap-2">
                 <SocialIcon label="Instagram">
@@ -113,32 +135,42 @@ export default function Footer() {
               </div>
             </div>
 
-            {landingData.footer.cols.map((col) => (
-              <div key={col.title}>
-                <p className="text-sm font-semibold tracking-wide text-[#3a271a]">
-                  {col.title}
-                </p>
-                <ul className="mt-4 space-y-3">
-                  {col.links.map((l) => (
-                    <li key={l.href}>
-                      <a
-                        href={l.href}
-                        className="text-sm text-[#3a271a]/75 transition hover:text-[#3a271a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3a271a]/35"
-                      >
-                        {l.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            <div>
+              <p className="text-sm font-semibold tracking-wide text-[#3a271a]">
+                Atalhos
+              </p>
+              <ul className="mt-4 space-y-3">
+                {FOOTER_LINKS_PRIMARY.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className={NAV_LINK_CLASS}>
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <div>
               <p className="text-sm font-semibold tracking-wide text-[#3a271a]">
-                Sign Up Newsletter
+                Conteúdos
+              </p>
+              <ul className="mt-4 space-y-3">
+                {FOOTER_LINKS_CONTENT.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className={NAV_LINK_CLASS}>
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <p className="text-sm font-semibold tracking-wide text-[#3a271a]">
+                Newsletter
               </p>
               <p className="mt-3 text-sm leading-6 text-[#3a271a]/75">
-                Receba novidades, promoções e conteúdo sobre café.
+                Receba novidades, promoções e dicas para evoluir no café.
               </p>
 
               <form className="mt-5 flex items-center gap-2">
@@ -155,21 +187,24 @@ export default function Footer() {
                   type="button"
                   className="h-11 shrink-0 rounded-xl bg-[#3a271a] px-4 text-[12px] font-semibold tracking-[0.22em] text-[#efe6dc] shadow-sm transition hover:bg-[#2f2016] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3a271a]/35"
                 >
-                  SUBSCRIBE
+                  ASSINAR
                 </button>
               </form>
+
+              <p className="mt-3 text-xs leading-5 text-[#3a271a]/55">
+                Sem spam. Você pode cancelar quando quiser.
+              </p>
             </div>
           </div>
 
           <div className="mt-10 h-px w-full bg-[#3a271a]/10" />
 
           <div className="mt-6 flex flex-col items-center justify-between gap-3 text-xs text-[#3a271a]/60 md:flex-row">
-            <p>© {new Date().getFullYear()} CoffeeCafe. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} CoffeeCafe. Todos os direitos reservados.</p>
             <p className="tracking-[0.18em]">COFFEE • CAFFEINE • CRAFT</p>
           </div>
         </div>
 
-        {/* Grãos decorativos (canto inferior direito) */}
         <div className="pointer-events-none absolute -bottom-10 right-0 hidden h-40 w-40 opacity-55 md:block">
           <Image
             src="https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=700&q=80"
@@ -180,6 +215,6 @@ export default function Footer() {
           />
         </div>
       </div>
-    </motion.div>
+    </motion.footer>
   );
 }

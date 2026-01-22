@@ -1,7 +1,9 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import { Dancing_Script, Poppins } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
+import Navbar from "../components/home/Navbar";
 
 const dancing = Dancing_Script({
   subsets: ["latin"],
@@ -16,18 +18,23 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "CoffeeCafe — Coffee Caffeine",
+  title: "CoffeeCafe — Café artesanal e bebidas especiais",
   description:
-    "CoffeeCafe — café artesanal com aroma intenso, bebidas especiais e grãos selecionados.",
+    "CoffeeCafe — café artesanal com aroma intenso, bebidas especiais e grãos selecionados. Faça seu pedido com rapidez e segurança.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="pt-br" className={`${dancing.variable} ${poppins.variable}`}>
       <body className="min-h-dvh bg-[#efe6dc] text-[#3a271a] antialiased">
-        <Providers>{children}</Providers>
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

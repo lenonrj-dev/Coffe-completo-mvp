@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useCart } from "./cart-store";
 import { brl } from "./format";
 
@@ -13,49 +13,68 @@ export default function CheckoutModal({
   open: boolean;
   onClose: () => void;
 }) {
-  const { items, subtotal, clear } = useCart();
+  const { items, subtotal } = useCart();
 
   const [step, setStep] = useState<Step>(1);
 
-  const [name, setName] = useState("ateliux");
-  const [phone, setPhone] = useState("(24) 99848-2188");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
 
-  const [dateLabel, setDateLabel] = useState("quinta, 22 de jan");
-  const [timeRange, setTimeRange] = useState("14:00 - 14:30");
+  const [dateLabel, setDateLabel] = useState("");
+  const [timeRange, setTimeRange] = useState("");
 
   const [coupon, setCoupon] = useState("");
   const [payMethod, setPayMethod] = useState<"pix" | "card">("pix");
 
   const total = useMemo(() => subtotal, [subtotal]);
 
+  // ✅ Reset completo quando abrir (UX certinha)
+  useEffect(() => {
+    if (!open) return;
+
+    setStep(1);
+    setName("");
+    setPhone("");
+    setDateLabel("");
+    setTimeRange("");
+    setCoupon("");
+    setPayMethod("pix");
+  }, [open]);
+
+  // ✅ trava scroll do body enquanto modal estiver aberto
+  useEffect(() => {
+    if (!open) return;
+
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
+  const canContinueStep1 =
+    name.trim().length > 0 &&
+    phone.trim().length > 0 &&
+    dateLabel.trim().length > 0 &&
+    timeRange.trim().length > 0;
+
   async function submit() {
     const base = process.env.NEXT_PUBLIC_BACKEND_URL;
 
     const payload = {
-      customer: {
-        name,
-        phone,
+      customer: { name, phone },
+      schedule: { dateLabel, timeRange },
+      pickup: {
+        placeName: "CoffeeCafe",
+        addressLine: "Rua 42, 15",
+        cityLine: "Vila Santa Cecília, Volta Redonda",
       },
-      fulfillment: {
-        type: "pickup",
-        addressLabel: "Retirar no estabelecimento",
-        addressLine: "Rua 42, 15 — Vila Santa Cecília, Volta Redonda",
-      },
-      schedule: {
-        date: dateLabel,
-        timeWindow: timeRange,
-      },
-      coupon: coupon ? { code: coupon } : undefined,
-      items: items.map((it) => ({
-        productId: it.id,
-        quantity: it.quantity,
-      })),
-      metadata: {
-        payMethod,
-      },
+      items: items.map((it) => ({ productId: it.id, quantity: it.quantity })),
+      couponCode: coupon || undefined,
+      payMethod,
     };
 
-    const res = await fetch(`${base}/api/checkout`, {
+    const res = await fetch(`${base}/checkout/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -64,7 +83,6 @@ export default function CheckoutModal({
     const data = await res.json();
 
     if (data?.initPoint) {
-      clear();
       window.location.href = data.initPoint;
       return;
     }
@@ -84,7 +102,10 @@ export default function CheckoutModal({
       <div className="relative z-[81] w-full max-w-[520px] rounded-3xl border border-[#3a271a]/10 bg-white shadow-xl">
         <div className="flex items-center justify-between border-b border-[#3a271a]/10 px-5 py-4">
           <button
-            onClick={() => setStep((s) => (s > 1 ? ((s - 1) as Step) : s))}
+            onClick={() => {
+              if (step === 1) onClose();
+              else setStep((s) => (s > 1 ? ((s - 1) as Step) : s));
+            }}
             className="rounded-xl px-2 py-1 text-sm font-semibold text-[#3a271a]/70 transition hover:text-[#3a271a]"
           >
             ←
@@ -169,10 +190,10 @@ export default function CheckoutModal({
 
               <div className="rounded-2xl border border-[#3a271a]/10 bg-white/60 p-4">
                 <p className="text-sm font-semibold text-[#3a271a]">
-                  Informe seu número de telefone
+                  Seus dados
                 </p>
                 <p className="mt-1 text-xs text-[#3a271a]/65">
-                  Importante para contato caso necessário.
+                  Preencha para contato caso necessário.
                 </p>
 
                 <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -184,7 +205,7 @@ export default function CheckoutModal({
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       className="mt-1 h-11 w-full rounded-2xl border border-[#3a271a]/10 bg-white/70 px-3 text-sm outline-none focus:ring-2 focus:ring-[#3a271a]/15"
-                      placeholder="Seu nome"
+                      placeholder="Digite seu nome"
                     />
                   </div>
 
@@ -214,7 +235,7 @@ export default function CheckoutModal({
                   Quer ganhar pontos e trocar por prêmios e descontos?
                 </p>
                 <p className="mt-2 text-xs text-[#3a271a]/55">
-                  (Demo) — pode virar uma regra real no MongoDB depois.
+                  (Demo) — pode virar uma regra real depois.
                 </p>
               </div>
 
@@ -246,7 +267,7 @@ export default function CheckoutModal({
                   value={coupon}
                   onChange={(e) => setCoupon(e.target.value)}
                   className="mt-2 h-11 w-full rounded-2xl border border-[#3a271a]/10 bg-white/70 px-3 text-sm outline-none focus:ring-2 focus:ring-[#3a271a]/15"
-                  placeholder="Digite um cupom (ex: CAFE10)"
+                  placeholder="Digite um cupom (opcional)"
                 />
               </div>
 
@@ -354,7 +375,9 @@ export default function CheckoutModal({
               if (step < 4) setStep((s) => ((s + 1) as Step));
               else submit();
             }}
-            disabled={items.length === 0}
+            disabled={
+              items.length === 0 || (step === 1 && !canContinueStep1)
+            }
             className="h-12 w-full rounded-2xl bg-[#3a271a] text-sm font-semibold text-[#efe6dc] shadow-sm transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {step < 4 ? "CONTINUAR" : "ENVIAR PEDIDO"}
